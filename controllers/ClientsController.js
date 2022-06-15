@@ -16,9 +16,8 @@ ClientsController.showClient = (req, res) => {
         where : {dni : documentation},
         attributes: {exclude: ['password']}
     }).then(clientFound =>{
-        if(!authConfig){  
-            console.log("entro aqui")
-            res.send("you need to be registered");
+        if(!req.headers.authorization) {
+            res.status(401).json({ msg: "You need to be registered" });
             
         }else{
             res.send(clientFound);   
@@ -83,7 +82,10 @@ ClientsController.clientLogin = (req, res) => {
                 let loginOKmessage = `Welcome again ${clientFound.name}`
                 res.json({
                     loginOKmessage,
-                    user: clientFound,
+                    user: {
+                        name:clientFound.name,
+                        age:clientFound.age
+                    },
                     token: token
                 })
             };
