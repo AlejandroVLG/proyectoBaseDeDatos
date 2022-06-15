@@ -14,7 +14,7 @@ ClientsController.showClient = (req, res) => {
 
     Client.findOne({
         where : {dni : documentation},
-        attributes: {exclude: ['password']}
+        attributes: {exclude: ['password','rol','client_number','dni','createdAt','updatedAt']}
     }).then(clientFound =>{
         if(!req.headers.authorization) {
             res.status(401).json({ msg: "You need to be registered" });
@@ -26,10 +26,14 @@ ClientsController.showClient = (req, res) => {
 };
 ClientsController.showClients = (req, res) => {
     Client.findAll({
-        attributes: {exclude: ['password']} //para que no me muestre el password
-    })
-    .then(data => {
-        res.send(data);
+        attributes: {exclude: ['password','rol','client_number','dni','createdAt','updatedAt']} //para que no me muestre el password
+    }).then(data =>{
+        if(!req.headers.authorization) {
+            res.status(401).json({ msg: "You don't have permission to do that" });
+            
+        }else{
+            res.send(data);   
+        };
     });
 };
 
@@ -84,6 +88,7 @@ ClientsController.clientLogin = (req, res) => {
                     loginOKmessage,
                     user: {
                         name:clientFound.name,
+                        email:clientFound.email,
                         age:clientFound.age
                     },
                     token: token
