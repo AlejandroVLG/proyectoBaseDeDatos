@@ -4,8 +4,8 @@ const auth = require("../middlewares/auth");
 
 const ClientsController = require("../controllers/ClientsController");
 
-router.post("/myaccount", ClientsController.showClient);
-router.get("/clientslist", ClientsController.showClients);
+router.post("/myaccount", auth, ClientsController.showClient);
+router.get("/clientslist", auth, ClientsController.showClients);
 router.post("/addclient", ClientsController.newClient);
 router.post("/login", ClientsController.clientLogin);
 

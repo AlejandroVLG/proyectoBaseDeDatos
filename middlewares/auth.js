@@ -6,7 +6,7 @@ const authConfig = require('../config/auth');
 //Export logic
 module.exports = (req, res, next) => {
     if(!req.headers.authorization) {
-        res.status(401).json({ msg: "Denied access" });
+        res.status(401).json({ msg: "Denied access, token required" });
     } else {
         let token = req.headers.authorization.split(" ")[1];
         jwt.verify(token, authConfig.secret, (err, decoded) => {
