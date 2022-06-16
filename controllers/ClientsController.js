@@ -8,13 +8,12 @@ let authConfig = require('../config/auth');
 //UserController object declaration
 const ClientsController = {};
 
-ClientsController.showClient = (req, res) => {
+ClientsController.showMyProfile = (req, res) => {
 
     let documentation = req.body.dni;
 
     Client.findOne({
         where : {dni : documentation},
-        attributes: {exclude: ['password','rol','client_number','dni','createdAt','updatedAt']}
 
     }).then(clientFound =>{
         res.send(clientFound);
