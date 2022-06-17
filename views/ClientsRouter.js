@@ -1,12 +1,14 @@
 const express = require("express");
+const auth = require("../config/auth");
 const router = express.Router();
-const auth = require("../middlewares/auth");
 
 const ClientsController = require("../controllers/ClientsController");
+const isAdmin = require("../middlewares/isAdmin");
 
-router.post("/myaccount", auth, ClientsController.showMyProfile);
-router.get("/clientslist", auth, ClientsController.showClients);
-router.post("/addclient", ClientsController.newClient);
-router.post("/login", ClientsController.clientLogin);
-
+router.post("/myAccount", ClientsController.showMember);
+router.get("/membersList", isAdmin, ClientsController.showMembers);
+router.post("/addMember", ClientsController.newMember);
+router.post("/login", ClientsController.memberLogin);
+/* router.put("/modifyProfile", ClientsController.modifyClientProfile);
+ */
 module.exports = router;

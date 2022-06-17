@@ -2,7 +2,7 @@ const { Film } = require('../models/index');
 
 const FilmsController = {};
 
-FilmsController.getFilms = (req, res) => {
+FilmsController.showListFilms = (req, res) => {
     Film.findAll()
     .then(data => {
     
@@ -10,7 +10,7 @@ FilmsController.getFilms = (req, res) => {
     });
 };
 
-FilmsController.postFilm = async (req, res) => {
+FilmsController.addFilm = async (req, res) => {
 
     let title = req.body.title;
     let genre = req.body.genre;
@@ -35,5 +35,21 @@ FilmsController.postFilm = async (req, res) => {
         res.send(error);
     });
 };
+/* FilmsController.searchFilmTitle = async (req, res) => {
+
+    let title = req.body.title;
+
+    Film.findOne({
+        where : { title : title}
+    })
+
+    .then(searchResult => {
+        if(searchResult.dataValues.title != undefined){
+            res.send(searchResult);
+        }else{
+            res.send("That film doesn't exist");
+        }
+    })
+} */
 
 module.exports = FilmsController;

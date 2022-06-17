@@ -5,10 +5,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 let authConfig = require('../config/auth');
 
-//UserController object declaration
 const ClientsController = {};
 
-ClientsController.showMyProfile = (req, res) => {
+ClientsController.showMember = (req, res) => {
 
     let documentation = req.body.dni;
 
@@ -19,7 +18,7 @@ ClientsController.showMyProfile = (req, res) => {
         res.send(clientFound);
     });
 };
-ClientsController.showClients = (req, res) => {
+ClientsController.showMembers = (req, res) => {
 
     Client.findAll({
         attributes: {exclude: ['password','rol','client_number','dni','createdAt','updatedAt']}
@@ -29,7 +28,7 @@ ClientsController.showClients = (req, res) => {
     });
 };
 
-ClientsController.newClient = async (req, res) => {
+ClientsController.newMember = async (req, res) => {
 
     let name = req.body.name;
     let dni = req.body.dni;
@@ -56,7 +55,7 @@ ClientsController.newClient = async (req, res) => {
     });
 };
 
-ClientsController.clientLogin = (req, res) => {
+ClientsController.memberLogin = (req, res) => {
 
     let document = req.body.dni;
     let key = req.body.password;

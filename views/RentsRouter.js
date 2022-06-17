@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 
 const RentsController = require("../controllers/RentsController");
 
-router.post("/addrent", auth, RentsController.postRent);
+router.post("/addRent", auth, RentsController.postRent);
 router.get("/listadoFiltrado", RentsController.getListadoFiltrado);
 
 module.exports = router;
