@@ -2,11 +2,11 @@ const { Film } = require('../models/index');
 
 const FilmsController = {};
 
-FilmsController.showListFilms = (req, res) => {
+FilmsController.showFilmsList = (req, res) => {
     Film.findAll()
     .then(data => {
     
-        res.send(data)
+        res.send(data);
     });
 };
 
@@ -35,7 +35,7 @@ FilmsController.addFilm = async (req, res) => {
         res.send(error);
     });
 };
-/* FilmsController.searchFilmTitle = async (req, res) => {
+FilmsController.searchFilmTitle = async (req, res) => {
 
     let title = req.body.title;
 
@@ -44,12 +44,13 @@ FilmsController.addFilm = async (req, res) => {
     })
 
     .then(searchResult => {
-        if(searchResult.dataValues.title != undefined){
-            res.send(searchResult);
-        }else{
+        if(!searchResult){
             res.send("That film doesn't exist");
-        }
-    })
-} */
+
+        }else{
+            res.send(searchResult);
+        };
+    });
+};
 
 module.exports = FilmsController;

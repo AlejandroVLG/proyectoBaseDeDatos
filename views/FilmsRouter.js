@@ -5,9 +5,9 @@ const router = express.Router();
 const FilmsController = require("../controllers/FilmsController");
 const isAdmin = require("../middlewares/isAdmin");
 
-router.get("/", FilmsController.showListFilms);
+router.get("/", FilmsController.showFilmsList);
 router.post("/addFilm", isAdmin, FilmsController.addFilm);
-/* router.get("/searchFilm", FilmsController.searchFilmTitle);
- */
+router.post("/searchFilm", FilmsController.searchFilmTitle);
+
 
 module.exports = router;
