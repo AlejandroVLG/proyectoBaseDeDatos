@@ -8,7 +8,7 @@ const isAdmin = require("../middlewares/isAdmin");
 
 router.post("/addRent", auth, RentsController.newRent);
 router.get("/showAllRents", isAdmin, RentsController.listOfRents);
-router.get("/listadoFiltrado", RentsController.getListadoFiltrado);
+router.post("/filteredInfo",isAdmin, RentsController.showDetailedRentInfo);
 
 
 

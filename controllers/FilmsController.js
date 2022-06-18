@@ -69,4 +69,23 @@ FilmsController.removeFilm = (req, res) => {
         };
     });
 }
+
+FilmsController.directorFilter = (req, res) => {
+
+    let director = req.body.director;
+
+    Film.findAll({
+        where : { director : director}
+    }).then(directorFound => {
+        if(!director){
+            res.send(`There isn't any movie on the database directed by ${directorFound}`);
+            
+        }else{
+            res.send(directorFound);
+    
+        };
+    })
+    
+    
+}
 module.exports = FilmsController;

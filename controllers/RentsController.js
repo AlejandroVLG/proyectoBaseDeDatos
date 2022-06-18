@@ -41,24 +41,24 @@ RentsController.listOfRents = (req, res) => {
     });
 };
 
-RentsController.getListadoFiltrado = async (req, res) => {
+RentsController.showDetailedRentInfo = async (req, res) => {
 
     let id = req.body.id;
 
-    let consulta = `SELECT clients.name AS NombresCliente, films.title AS TituloPelicula, rents.createdAt AS FechaAlquiler
+    let query = `SELECT clients.name AS ClientName, films.title AS FilmTitle, rents.createdAt AS RentDate
     FROM clients
     INNER JOIN rents ON clients.id = rents.clientId
     INNER JOIN films ON films.id = rents.filmId
     WHERE clientId LIKE ${id};`;
 
-    let resultado = await Rent.sequelize.query(consulta, {
+    let result = await Rent.sequelize.query(query, {
         type: Rent.sequelize.QueryTypes.SELECT
     });
 
-    if(resultado != 0){
-        res.send(resultado);
+    if(result != 0){
+        res.send(result);
     }else {
-        res.send("Busqueda incorrecta");
+        res.send("ID not found");
     };   
 }
 

@@ -6,10 +6,11 @@ const auth = require("../middlewares/auth")
 const FilmsController = require("../controllers/FilmsController");
 const isAdmin = require("../middlewares/isAdmin");
 
+router.post("/addFilm", isAdmin, FilmsController.addNewFilm);
 router.get("/filmsList", FilmsController.showFilmsList);
-router.post("/addFilm", auth, FilmsController.addNewFilm);
 router.post("/searchFilm", FilmsController.searchFilmTitle);
-router.delete("/removeFilm", FilmsController.removeFilm);
+router.post("/searchByDirector", FilmsController.directorFilter)
+router.delete("/removeFilm", isAdmin, FilmsController.removeFilm);
 
 
 module.exports = router;
