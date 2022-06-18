@@ -1,12 +1,13 @@
 
 const express = require("express");
 const router = express.Router();
+const auth = require("../middlewares/auth")
 
 const FilmsController = require("../controllers/FilmsController");
 const isAdmin = require("../middlewares/isAdmin");
 
-router.get("/", FilmsController.showFilmsList);
-router.post("/addFilm", isAdmin, FilmsController.addFilm);
+router.get("/filmsList", FilmsController.showFilmsList);
+router.post("/addFilm", auth, FilmsController.addNewFilm);
 router.post("/searchFilm", FilmsController.searchFilmTitle);
 
 

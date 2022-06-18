@@ -89,5 +89,33 @@ ClientsController.memberLogin = (req, res) => {
     }).catch(err => console.log(err));
 };
 
-//Export
+ClientsController.modifyMemberProfile = (req, res) => {
+
+    let identity = req.body.id;
+    let newEmail = req.body.email; 
+
+    Client.findOne({
+        where : {id : identity},
+    }).then(clientFound => {
+        if(!clientFound){
+            res.send("Client doesn't found");
+
+        }else{
+            clientFound.update({
+                email : newEmail
+            })
+            res.send(clientFound);
+        };
+    });
+};
+/* ClientsController.modifyMemberProfile = (req, res) => {
+
+    Client.update({
+        email : req.body.email
+
+    }).then (modifyEmail => {
+        res.send("Your new email is ",modifyEmail);
+    })
+} */
+
 module.exports = ClientsController;

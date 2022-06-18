@@ -10,7 +10,7 @@ FilmsController.showFilmsList = (req, res) => {
     });
 };
 
-FilmsController.addFilm = async (req, res) => {
+FilmsController.addNewFilm = async (req, res) => {
 
     let title = req.body.title;
     let genre = req.body.genre;

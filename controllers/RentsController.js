@@ -4,14 +4,13 @@ let authConfig = require('../config/auth');
 
 const RentsController = {};
 
-RentsController.postRent = async (req, res) => {
+RentsController.newRent = async (req, res) => {
 
     let clientId = req.body.clientId;
     let filmId = req.body.filmId;
     let total_price = req.body.total_price;
     let max_rent_date = req.body.max_rent_date;
     let return_date = req.body.return_date;
-    let penalty = req.body.penalty;
     
     Rent.create({
         clientId: clientId,
@@ -19,7 +18,6 @@ RentsController.postRent = async (req, res) => {
         total_price: total_price,
         max_rent_date: max_rent_date,
         return_date: return_date,
-        penalty: penalty
     }).then(rent => {
 
         if(!authConfig){  
@@ -31,6 +29,15 @@ RentsController.postRent = async (req, res) => {
 
     }).catch((error) => {
         res.send(error);
+    });
+};
+
+RentsController.listOfRents = (req, res) => {
+
+    Rent.findAll()
+    
+    .then(data => {
+    res.send(data);
     });
 };
 
