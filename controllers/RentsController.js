@@ -59,8 +59,7 @@ RentsController.getListadoFiltrado = async (req, res) => {
         res.send(resultado);
     }else {
         res.send("Busqueda incorrecta");
-    };
-    
+    };   
 }
 
 module.exports = RentsController;

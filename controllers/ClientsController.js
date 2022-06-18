@@ -91,11 +91,11 @@ ClientsController.memberLogin = (req, res) => {
 
 ClientsController.modifyMemberProfile = (req, res) => {
 
-    let identity = req.body.id;
+    let id = req.body.id;
     let newEmail = req.body.email; 
 
     Client.findOne({
-        where : {id : identity},
+        where : {id : id},
     }).then(clientFound => {
         if(!clientFound){
             res.send("Client doesn't found");
@@ -108,14 +108,5 @@ ClientsController.modifyMemberProfile = (req, res) => {
         };
     });
 };
-/* ClientsController.modifyMemberProfile = (req, res) => {
-
-    Client.update({
-        email : req.body.email
-
-    }).then (modifyEmail => {
-        res.send("Your new email is ",modifyEmail);
-    })
-} */
 
 module.exports = ClientsController;

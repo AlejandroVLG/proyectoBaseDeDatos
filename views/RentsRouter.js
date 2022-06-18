@@ -11,4 +11,5 @@ router.get("/showAllRents", isAdmin, RentsController.listOfRents);
 router.get("/listadoFiltrado", RentsController.getListadoFiltrado);
 
 
+
 module.exports = router;

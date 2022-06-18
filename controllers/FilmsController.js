@@ -52,5 +52,21 @@ FilmsController.searchFilmTitle = async (req, res) => {
         };
     });
 };
+FilmsController.removeFilm = (req, res) => {
 
+    let id = req.body.id;
+
+    Film.findOne({
+        where : {id : id},
+    }).then(filmFound => {
+        if(!filmFound){
+            res.send("Film doesn't found");
+
+        }else{
+            filmFound.destroy({
+            })
+            res.send(filmFound);
+        };
+    });
+}
 module.exports = FilmsController;
