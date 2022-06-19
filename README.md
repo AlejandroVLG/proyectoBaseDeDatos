@@ -3,16 +3,16 @@
 <p>This is my first SQL database project for GeeksHubs Academy using postman as a frontend simulator.<br/> It emulates a humble videoclub database divided in three tables: Clients, Films and Rents. <br/>
 You can see below a few screenshoots as example of some endpoints.</p><br/>
 
-####Generating a new rent 
+Generating a new rent 
 <p align="center"><img src="/img/addRent.png"></img></p><br/>
 
-####Adding a new film 
+Adding a new film 
 <p align="center"><img src="/img/addFilm.png"></img></p><br/>
 
-####Modifying an existent client profile
+Modifying an existent client profile
 <p align="center"><img src="/img/modifyProfile.png"></img></p><br/>
 
-####Removing a film from the database
+Removing a film from the database
 <p align="center"><img src="/img/removeFilm.png"></img></p><br/>
 <br/>
 
