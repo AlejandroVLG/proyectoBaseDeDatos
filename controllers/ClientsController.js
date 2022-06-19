@@ -12,9 +12,9 @@ ClientsController.showMember = (req, res) => {
     let documentation = req.body.dni;
 
     Client.findOne({
-        where : {dni : documentation},
+        where: { dni: documentation },
 
-    }).then(clientFound =>{
+    }).then(clientFound => {
         res.send(clientFound);
 
     }).catch((error) => {
@@ -24,9 +24,9 @@ ClientsController.showMember = (req, res) => {
 ClientsController.showMembers = (req, res) => {
 
     Client.findAll({
-        attributes: {exclude: ['password','rol','client_number','dni','createdAt','updatedAt']}
+        attributes: { exclude: ['password', 'rol', 'client_number', 'dni', 'createdAt', 'updatedAt'] }
 
-    }).then(data =>{
+    }).then(data => {
         res.send(data);
 
     }).catch((error) => {
@@ -46,25 +46,29 @@ ClientsController.newMember = async (req, res) => {
 
     let attributesArray = [name, dni, email, client_number];
 
-    for (let attribute of attributesArray){
+    
+    for (let attribute of attributesArray) {
 
-        if (attribute === ""){
+        if (attribute === "") {
             res.send("There can't be an empty fild");
-        } 
+        };
     };
-    await Client.findOne({
-        where : {
-            name : name,
-            dni : dni,
-            email : email,
-            client_number : client_number
-        },
+    
+    try{
+        
+        await Client.findOne({
+            where : {
+                dni: dni,
+                email: email,
+                client_number: client_number
+            },
+    
         }).then(newClientFound => {
-
-            if(newClientFound){
-                res.send("User already exists"); 
-
-            }else{
+    
+            if (newClientFound) {
+                res.send("User already exists");
+    
+            }else {
                 Client.create({
                     name: name,
                     dni: dni,
@@ -73,15 +77,18 @@ ClientsController.newMember = async (req, res) => {
                     email: email,
                     rol: rol,
                     client_number: client_number
-            }).then(client => {
-                res.send(`${client.name} has been added succesfully`);
+                }).then(clientCreated => {
+                    res.send(`${clientCreated.name} has been added succesfully`);
     
-            }).catch((error) => {
-                res.send(error);
-            });
-        };
-    }); 
-};    
+                }).catch((error) => {
+                    res.send(error);
+                });
+            };
+        });
+    }catch (error) {
+        res.send(error);
+    };    
+};
 
 ClientsController.memberLogin = (req, res) => {
 
@@ -89,26 +96,26 @@ ClientsController.memberLogin = (req, res) => {
     let key = req.body.password;
 
     Client.findOne({
-        where : {dni : document}
+        where: { dni: document }
 
     }).then(clientFound => {
 
-        if(!clientFound){
+        if (!clientFound) {
             res.send("Incorrect user name or password");
         } else {
-            if( bcrypt.compareSync(key, clientFound.password)){
+            if (bcrypt.compareSync(key, clientFound.password)) {
 
                 let token = jwt.sign({ user: clientFound }, authConfig.secret, {
                     expiresIn: authConfig.expires
                 });
-                
+
                 let loginOKmessage = `Welcome back ${clientFound.name}`
                 res.json({
                     loginOKmessage,
                     user: {
-                        name:clientFound.name,
-                        email:clientFound.email,
-                        age:clientFound.age
+                        name: clientFound.name,
+                        email: clientFound.email,
+                        age: clientFound.age
                     },
                     token: token
                 })
@@ -122,17 +129,17 @@ ClientsController.memberLogin = (req, res) => {
 ClientsController.modifyMemberProfile = (req, res) => {
 
     let id = req.body.id;
-    let newEmail = req.body.email; 
+    let newEmail = req.body.email;
 
     Client.findOne({
-        where : {id : id},
+        where: { id: id },
     }).then(clientFound => {
-        if(!clientFound){
+        if (!clientFound) {
             res.send(`${clientFound} doesn't found`);
 
-        }else{
+        } else {
             clientFound.update({
-                email : newEmail
+                email: newEmail
             })
             res.send(clientFound);
         };
