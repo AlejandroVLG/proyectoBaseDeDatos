@@ -29,7 +29,7 @@ FilmsController.addNewFilm = async (req, res) => {
         year: year,
         price: price
     }).then(film => {
-        res.send(`${film.title}, you have been added succesfully`);
+        res.send(`${film.title} has been added succesfully`);
 
     }).catch((error) => {
         res.send(error);
@@ -45,11 +45,13 @@ FilmsController.searchFilmTitle = async (req, res) => {
 
     .then(searchResult => {
         if(!searchResult){
-            res.send("That film doesn't exist");
+            res.send(`There isn't any film in the database called ${searchResult}`);
 
         }else{
             res.send(searchResult);
         };
+    }).catch((error) => {
+        res.send(error);
     });
 };
 FilmsController.removeFilm = (req, res) => {
@@ -60,13 +62,15 @@ FilmsController.removeFilm = (req, res) => {
         where : {id : id},
     }).then(filmFound => {
         if(!filmFound){
-            res.send("Film doesn't found");
+            res.send(`There isn't any film in the database called ${filmFound}`);
 
         }else{
             filmFound.destroy({
             })
             res.send(filmFound);
         };
+    }).catch((error) => {
+        res.send(error);
     });
 }
 
@@ -76,16 +80,34 @@ FilmsController.directorFilter = (req, res) => {
 
     Film.findAll({
         where : { director : director}
+
     }).then(directorFound => {
         if(!director){
             res.send(`There isn't any movie on the database directed by ${directorFound}`);
-            
+
         }else{
             res.send(directorFound);
-    
         };
-    })
+    }).catch((error) => {
+        res.send(error);
+    });
+};
+
+/* FilmsController.searchFilmByRecomendedAge = (req, res) => {
+
+    let recomended_age = req.body.recomended_age;
+    let array = [];
+
+    for(let i = recomended_age; i > 0; i--){
+
+        Film.findOne({
+            where : { recomended_age : i}
     
-    
-}
+        }).then(data => {
+            array.push(data);
+        });
+    };
+    res.send(array);
+}; */
+
 module.exports = FilmsController;

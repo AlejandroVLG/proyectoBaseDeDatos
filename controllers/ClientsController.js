@@ -16,6 +16,9 @@ ClientsController.showMember = (req, res) => {
 
     }).then(clientFound =>{
         res.send(clientFound);
+
+    }).catch((error) => {
+        res.send(error);
     });
 };
 ClientsController.showMembers = (req, res) => {
@@ -25,6 +28,9 @@ ClientsController.showMembers = (req, res) => {
 
     }).then(data =>{
         res.send(data);
+
+    }).catch((error) => {
+        res.send(error);
     });
 };
 
@@ -38,22 +44,44 @@ ClientsController.newMember = async (req, res) => {
     let rol = req.body.rol;
     let client_number = req.body.client_number;
 
+    let attributesArray = [name, dni, email, client_number];
 
-    Client.create({
-        name: name,
-        dni: dni,
-        password: password,
-        age: age,
-        email: email,
-        rol: rol,
-        client_number: client_number
-    }).then(client => {
-        res.send(`${client.name}, you have been added succesfully`);
+    for (let attribute of attributesArray){
 
-    }).catch((error) => {
-        res.send(error);
-    });
-};
+        if (attribute === ""){
+            res.send("There can't be an empty fild");
+        } 
+    };
+    await Client.findOne({
+        where : {
+            name : name,
+            dni : dni,
+            email : email,
+            client_number : client_number
+        },
+        }).then(newClientFound => {
+
+            if(newClientFound){
+                res.send("User already exists"); 
+
+            }else{
+                Client.create({
+                    name: name,
+                    dni: dni,
+                    password: password,
+                    age: age,
+                    email: email,
+                    rol: rol,
+                    client_number: client_number
+            }).then(client => {
+                res.send(`${client.name} has been added succesfully`);
+    
+            }).catch((error) => {
+                res.send(error);
+            });
+        };
+    }); 
+};    
 
 ClientsController.memberLogin = (req, res) => {
 
@@ -66,7 +94,7 @@ ClientsController.memberLogin = (req, res) => {
     }).then(clientFound => {
 
         if(!clientFound){
-            res.send("Usuario o password incorrectos");
+            res.send("Incorrect user name or password");
         } else {
             if( bcrypt.compareSync(key, clientFound.password)){
 
@@ -74,7 +102,7 @@ ClientsController.memberLogin = (req, res) => {
                     expiresIn: authConfig.expires
                 });
                 
-                let loginOKmessage = `Welcome again ${clientFound.name}`
+                let loginOKmessage = `Welcome back ${clientFound.name}`
                 res.json({
                     loginOKmessage,
                     user: {
@@ -86,7 +114,9 @@ ClientsController.memberLogin = (req, res) => {
                 })
             };
         };
-    }).catch(err => console.log(err));
+    }).catch((error) => {
+        res.send(error);
+    });
 };
 
 ClientsController.modifyMemberProfile = (req, res) => {
@@ -98,7 +128,7 @@ ClientsController.modifyMemberProfile = (req, res) => {
         where : {id : id},
     }).then(clientFound => {
         if(!clientFound){
-            res.send("Client doesn't found");
+            res.send(`${clientFound} doesn't found`);
 
         }else{
             clientFound.update({
@@ -106,6 +136,8 @@ ClientsController.modifyMemberProfile = (req, res) => {
             })
             res.send(clientFound);
         };
+    }).catch((error) => {
+        res.send(error);
     });
 };
 

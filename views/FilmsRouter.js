@@ -11,6 +11,7 @@ router.get("/filmsList", FilmsController.showFilmsList);
 router.post("/searchFilm", FilmsController.searchFilmTitle);
 router.post("/searchByDirector", FilmsController.directorFilter)
 router.delete("/removeFilm", isAdmin, FilmsController.removeFilm);
-
+/* router.post("/searchFilmByRecomendedAge", FilmsController.searchFilmByRecomendedAge)
+ */
 
 module.exports = router;

@@ -38,6 +38,9 @@ RentsController.listOfRents = (req, res) => {
     
     .then(data => {
     res.send(data);
+
+    }).catch((error) => {
+        res.send(error);
     });
 };
 
@@ -55,11 +58,11 @@ RentsController.showDetailedRentInfo = async (req, res) => {
         type: Rent.sequelize.QueryTypes.SELECT
     });
 
-    if(result != 0){
+    if(result != ""){
         res.send(result);
     }else {
         res.send("ID not found");
     };   
-}
+};
 
 module.exports = RentsController;
