@@ -1,7 +1,7 @@
 
 const express = require("express");
 const router = express.Router();
-const auth = require("../middlewares/auth")
+const auth = require("../middlewares/auth");
 
 const FilmsController = require("../controllers/FilmsController");
 const isAdmin = require("../middlewares/isAdmin");
@@ -11,7 +11,7 @@ router.get("/filmsList", FilmsController.showFilmsList);
 router.post("/searchFilm", FilmsController.searchFilmTitle);
 router.post("/searchByDirector", FilmsController.directorFilter)
 router.delete("/removeFilm", isAdmin, FilmsController.removeFilm);
-/* router.post("/searchFilmByRecomendedAge", FilmsController.searchFilmByRecomendedAge)
- */
+/* router.post("/searchFilmByRecomendedAge", FilmsController.searchFilmByRecomendedAge); */
+
 
 module.exports = router;

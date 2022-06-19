@@ -96,18 +96,18 @@ FilmsController.directorFilter = (req, res) => {
 /* FilmsController.searchFilmByRecomendedAge = (req, res) => {
 
     let recomended_age = req.body.recomended_age;
-    let array = [];
 
-    for(let i = recomended_age; i > 0; i--){
+    for(let i = 1; i <= recomended_age; i++){
 
-        Film.findOne({
-            where : { recomended_age : i}
-    
-        }).then(data => {
-            array.push(data);
-        });
+        let count = i;
+
+        Film.find({
+            where : {recomended_age : count}
+                
+        }).then(data => {        
+            res.send(data);
+        });        
     };
-    res.send(array);
 }; */
 
 module.exports = FilmsController;
