@@ -57,17 +57,15 @@ ClientsController.newMember = async (req, res) => {
     try{
         
         await Client.findOne({
-            where : {
-                dni: dni,
-                email: email,
-                client_number: client_number
-            },
+            where : {dni: dni},
+            where : {email: email},
+            where : {client_number: client_number}
     
         }).then(newClientFound => {
     
             if (newClientFound) {
                 res.send("User already exists");
-    
+                
             }else {
                 Client.create({
                     name: name,
@@ -80,7 +78,7 @@ ClientsController.newMember = async (req, res) => {
                 }).then(clientCreated => {
                     res.send(`${clientCreated.name} has been added succesfully`);
     
-                }).catch((error) => {
+                }).catch((error) => {   
                     res.send(error);
                 });
             };
