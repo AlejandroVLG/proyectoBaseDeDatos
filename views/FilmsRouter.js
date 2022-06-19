@@ -10,8 +10,9 @@ router.post("/addFilm", isAdmin, FilmsController.addNewFilm);
 router.get("/filmsList", FilmsController.showFilmsList);
 router.post("/searchFilm", FilmsController.searchFilmTitle);
 router.post("/searchByDirector", FilmsController.directorFilter)
+router.post("/searchFilmByRecomendedAge", FilmsController.searchFilmByRecomendedAge);
+router.post("/searchFilmByPrice", FilmsController.searchFilmByPrice);
 router.delete("/removeFilm", isAdmin, FilmsController.removeFilm);
-/* router.post("/searchFilmByRecomendedAge", FilmsController.searchFilmByRecomendedAge); */
 
 
 module.exports = router;

@@ -93,21 +93,36 @@ FilmsController.directorFilter = (req, res) => {
     });
 };
 
-/* FilmsController.searchFilmByRecomendedAge = (req, res) => {
+FilmsController.searchFilmByRecomendedAge = async (req, res) => {
 
     let recomended_age = req.body.recomended_age;
 
-    for(let i = 1; i <= recomended_age; i++){
+    let query = `SELECT * FROM videoclubPremium.films WHERE recomended_age <= ${recomended_age}`;
 
-        let count = i;
+    let ageFilter = await Film.sequelize.query(query, {
+        type: Film.sequelize.QueryTypes.SELECT 
+    });
 
-        Film.find({
-            where : {recomended_age : count}
-                
-        }).then(data => {        
-            res.send(data);
-        });        
+    if(ageFilter != 0){
+        res.send(ageFilter);
+    }else{
+        res.send("There isn't any movie recommended for that age");
     };
-}; */
+}
+FilmsController.searchFilmByPrice = async (req, res) => {
 
+    let price = req.body.price;
+
+    let query = `SELECT * FROM videoclubPremium.films WHERE price <= ${price}`;
+
+    let priceFilter = await Film.sequelize.query(query, {
+        type: Film.sequelize.QueryTypes.SELECT 
+    });
+
+    if(priceFilter != 0){
+        res.send(priceFilter);
+    }else{
+        res.send("There isn't any movie with that price or below");
+    };
+}
 module.exports = FilmsController;
