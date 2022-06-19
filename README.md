@@ -9,7 +9,7 @@ You can see below a few screenshoots as example of some endpoints.</p><br/>
 #####Adding a new film 
 <p align="center"><img src="/img/addFilm.png"></img></p><br/>
 
-#####Modifying an existent profile
+#####Modifying a client profile
 <p align="center"><img src="/img/modifyProfile.png"></img></p><br/>
 
 #####Removing a film 
