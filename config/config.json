@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": "12345678",
-    "database": "videoclubPremium",
-    "host": "127.0.0.1",
+    "username": "bb0fe4ba2f97dc",
+    "password": "5d5297f1",
+    "database": "heroku_25c4425b002f2b0",
+    "host": "eu-cdbr-west-03.cleardb.net",
+    "port": "3306",
     "dialect": "mysql"
   },
   "test": {
@@ -14,10 +15,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "bb0fe4ba2f97dc",
+    "password": "5d5297f1",
+    "database": "heroku_25c4425b002f2b0",
+    "host": "eu-cdbr-west-03.cleardb.net",
+    "port": "3306",
     "dialect": "mysql"
   }
 }

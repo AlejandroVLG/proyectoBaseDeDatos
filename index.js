@@ -2,7 +2,15 @@ const express = require("express");
 
 const app = express();
 
-const port = 3000;
+const PORT = process.env.PORT || 3000; //Configuramos puerto heroku
+
+//Config Cors Options
+var corsOptions = {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,",
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+};
 
 const router = require("./router");
 
@@ -12,8 +20,8 @@ app.use(express.json());
 
 app.use(router);
 
-db.then(()=>{
+db.then(() => {
 
-    app.listen(port, ()=> {console.log("Servidor levantado en el puerto ", port)});
+    app.listen(PORT, () => { console.log("Servidor levantado en el puerto ", PORT) });
 
 }).catch((err) => console.log(err.message));
