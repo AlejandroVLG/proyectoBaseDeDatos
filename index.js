@@ -5,12 +5,6 @@ const app = express();
 const PORT = process.env.PORT || 3000; //Configuramos puerto heroku
 
 //Config Cors Options
-var corsOptions = {
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,",
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-};
 
 const router = require("./router");
 
